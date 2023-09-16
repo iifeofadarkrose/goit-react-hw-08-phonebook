@@ -1,0 +1,46 @@
+.navHeader {
+  background: rgb(52,246,134);
+  background: radial-gradient(circle, rgba(52,246,134,1) 0%, rgba(50,168,226,1) 100%);min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* position: fixed; */
+  top: 0;
+}
+
+.navText {
+  color: white;
+  text-decoration: none;
+  font-size: 23px;
+  display: inline-block;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.navBtn {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 1.5;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  color: black;
+  background: #32a8e2;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  min-width: 80px;
+  height: 35px;
+  margin-left: 25px;
+  margin-right: 25px;
+  padding-top: 7px;
+  padding-right: 16px;
+  padding-bottom: 8px;
+  padding-left: 16px;
+  border: 0;
+  transition: background-color 250ms var(--timing-function);
+}
+
+.navBtn:is(:hover, :focus) {
+  background: var(--hover-color);
+  color: white;
+}

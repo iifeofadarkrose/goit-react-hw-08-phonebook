@@ -1,9 +1,10 @@
 import { ContactListItem } from './ContactListItem/ContactListItem';
 import { useSelector } from 'react-redux';
-import { selectContacts, selectFilterList,} from 'redux/selectors';
+import { selectContacts, selectFilterList, } from 'redux/selectors';
 import css from './ContactList.module.css';
 
 export const ContactList = () => {
+ 
   const contacts = useSelector(selectContacts);
   const filterList = useSelector(selectFilterList);
 
@@ -22,7 +23,7 @@ export const ContactList = () => {
         <ContactListItem
           key={contact.id}
           name={contact.name}
-          phone={contact.phone}
+          phone={contact.number}
           id={contact.id}
         />
       ))}

@@ -5,7 +5,9 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { useDispatch } from 'react-redux';
 import { selectContacts } from 'redux/selectors';
-import { fetchAddContact } from 'redux/apiOperations';
+import { fetchAddContact } from 'redux/contacts/apiOperations';
+import iziToast from 'izitoast';
+import '/node_modules/izitoast/dist/css/iziToast.css';
 
 const ContactForm = () => {
   const [name, setName] = useState('');
@@ -17,19 +19,11 @@ const ContactForm = () => {
   let nameInputId = nanoid(10);
   let numberInputId = nanoid(10);
 
-  const handleInputChange = evt => {
-    const { name, value } = evt.currentTarget;
-
-    const fieldHandlers = {
-      name: setName,
-      number: setNumber,
-    };
-
-    const fieldHandler = fieldHandlers[name];
-
-    if (fieldHandler) {
-      fieldHandler(value);
-    }
+  const handleInputName = evt => {
+    setName(evt.currentTarget.value);
+  };
+  const handleInputNumber = evt => {
+    setNumber(evt.currentTarget.value);
   };
 
   const handleSubmit = evt => {
@@ -40,12 +34,24 @@ const ContactForm = () => {
     );
 
     if (existingContact) {
-       alert(`You allready have this contact!`);
+      iziToast.warning({
+        title: 'Caution',
+        message: `Contact with this name "${existingContact.name}" is already exists.`,
+      });
       return;
     }
-    const contact = { name, phone: number };
+    evt.preventDefault();
+
+    const contact = {
+      name,
+      number,
+    };
+    
     dispatch(fetchAddContact(contact));
-    reset();
+
+    if (!existingContact) {
+      reset();
+    }
   };
 
   const reset = () => {
@@ -63,11 +69,11 @@ const ContactForm = () => {
         id={nameInputId}
         type="text"
         name="name"
-        pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+        pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
         title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
         required
         value={name}
-        onChange={handleInputChange}
+        onChange={handleInputName}
       />
       <label htmlFor={numberInputId} className={css.label}>
         Number
@@ -77,11 +83,11 @@ const ContactForm = () => {
         id={numberInputId}
         type="tel"
         name="number"
-        pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+        pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
         title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
         required
         value={number}
-        onChange={handleInputChange}
+        onChange={handleInputNumber}
       />
       <button type="submit" className={css.btn}>
         Add contact

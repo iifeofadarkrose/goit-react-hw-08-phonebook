@@ -20,7 +20,7 @@
   cursor: pointer;
   letter-spacing: 0.04em;
   color: var(--primary-text-color);
-  background: #dbdce8;
+  background:  #f7f8ffb8;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
   border-radius: 4px;
   min-width: 80px;
@@ -35,5 +35,7 @@
 }
 
 .btn:is(:hover, :focus) {
-  background: var(--hover-color);
+  background: rgb(52,246,134);
+  background: radial-gradient(circle, rgba(52,246,134,1) 0%, rgba(50,168,226,1) 100%);
+  color: black;
 }

@@ -15,6 +15,7 @@ export const Filter = () => {
           className={css.input}
           type="text"
           value={filterList}
+          placeholder="Search..."
           onChange={evt => dispatch(setFilterList(evt.currentTarget.value))}
         />
       </label>
